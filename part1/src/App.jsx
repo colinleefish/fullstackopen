@@ -2,11 +2,15 @@ const Header = (props) => {
   return <h1>{props.header}</h1>;
 };
 
+const Part = (props) => {
+  return "Part";
+};
+
 const Content = (props) => {
   return (
-    <p>
-      {props.part} {props.exercises}
-    </p>
+    <div>
+      <Part></Part>
+    </div>
   );
 };
 
