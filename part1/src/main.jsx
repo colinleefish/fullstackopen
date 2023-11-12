@@ -1,10 +1,12 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App";
+// import Part1A from "./Part1A";
+import Part1C from './Part1C';
 
 const root = createRoot(document.getElementById("root"));
 root.render(
   <StrictMode>
-    <App />
+    {/* <Part1A /> */}
+    <Part1C />
   </StrictMode>
 );

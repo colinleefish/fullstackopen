@@ -35,7 +35,7 @@ const CourseInfo = (props) => {
   );
 };
 
-const App = () => {
+const Part1A = () => {
   const course = {
     title: "Half stack application development",
     parts: [
@@ -61,4 +61,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Part1A;
