@@ -1,48 +1,62 @@
+import React from "react";
+
 const Header = (props) => {
   return <h1>{props.header}</h1>;
 };
 
-const Part = (props) => {
-  return "Part";
-};
-
 const Content = (props) => {
   return (
-    <div>
-      <Part></Part>
-    </div>
+    <>
+      {props.parts.map((part) => (
+        <React.Fragment key={part.name}>
+          <h3>{part.name}</h3>
+          <p>{part.exercise}</p>
+        </React.Fragment>
+      ))}
+    </>
   );
 };
 
 const Total = (props) => {
   return (
     <p>
-      Number of exercises{" "}
-      {props.exercises1 + props.exercises2 + props.exercises3}
+      Totally there are {props.parts.reduce((a, v) => a + v.exercises, 0)}{" "}
+      exerciese
     </p>
+  );
+};
+const CourseInfo = (props) => {
+  return (
+    <>
+      <Header header={props.course.title} />
+      <Content parts={props.course.parts} />
+      <Total parts={props.course.parts} />
+    </>
   );
 };
 
 const App = () => {
-  const course = "Half stack application development";
-  const part1 = "Fundamentals of React";
-  const exercises1 = 10;
-  const part2 = "Using props to pass data";
-  const exercises2 = 7;
-  const part3 = "State of a component";
-  const exercises3 = 14;
+  const course = {
+    title: "Half stack application development",
+    parts: [
+      {
+        name: "Fundamentals of react",
+        exercises: 10,
+      },
+      {
+        name: "aa of react",
+        exercises: 15,
+      },
+      {
+        name: "bb of react",
+        exercises: 20,
+      },
+    ],
+  };
 
   return (
     <div>
-      <Header header={course} />
-      <Content part={part1} exercises={exercises1} />
-      <Content part={part2} exercises={exercises2} />
-      <Content part={part3} exercises={exercises3} />
-      <Total
-        exercises1={exercises1}
-        exercises2={exercises2}
-        exercises3={exercises3}
-      />
+      <CourseInfo course={course} />
     </div>
   );
 };
