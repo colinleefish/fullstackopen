@@ -9,19 +9,6 @@ const Button = ({ text, onClick }) => {
   return <button onClick={onClick}>{text}</button>;
 };
 
-const MostVoted = ({ text, anecdotes, mostVotedAnecdoteNumber }) => {
-  if (mostVotedAnecdoteNumber >= 0) {
-    return (
-      <>
-        <h3>{text}</h3>
-        <p>{anecdotes[mostVotedAnecdoteNumber]}</p>
-      </>
-    );
-  } else {
-    return <></>;
-  }
-};
-
 const Part1Anecdotes = () => {
   const anecdotes = [
     "If it hurts, do it more often.",
@@ -34,7 +21,6 @@ const Part1Anecdotes = () => {
     "The only way to go fast, is to go well.",
   ];
   const [selected, setSelected] = useState(0);
-  const [mostVotedAnecdoteNumber, setMostVotedAnecdoteNumber] = useState(-1);
   const [votes, setVotes] = useState({});
 
   const voteThisAnecdote = () => {
@@ -45,30 +31,34 @@ const Part1Anecdotes = () => {
       newVotes[selected] = 1;
     }
     setVotes(newVotes);
-    var maxCount = 0;
-    Object.entries(votes).forEach((entry) => {
-      const [anecNumber, voteCount] = entry;
-      if (voteCount > maxCount) {
-        setMostVotedAnecdoteNumber(anecNumber);
-        maxCount = voteCount;
-      }
-    });
   };
 
   const pickRandomAnecdote = () => {
     const anecNumber = getRandomInt(anecdotes.length);
     setSelected(anecNumber);
   };
+
+  var maxCount = 0;
+  var mostVotedAnecdoteNumber = -1;
+  Object.entries(votes).forEach((entry) => {
+    const [anecNumber, voteCount] = entry;
+    if (voteCount > maxCount) {
+      mostVotedAnecdoteNumber = anecNumber;
+      maxCount = voteCount;
+    }
+  });
+
   return (
     <div>
       <p>{anecdotes[selected]}</p>
       <Button text="vote this" onClick={voteThisAnecdote} />
       <Button text="next anecdote" onClick={pickRandomAnecdote} />
-      <MostVoted
-        text="Anecdote with Most votes"
-        anecdotes={anecdotes}
-        mostVotedAnecdoteNumber={mostVotedAnecdoteNumber}
-      />
+      {mostVotedAnecdoteNumber > -1 && (
+        <>
+          <h3>Anecdote with most votes</h3>
+          <p>{anecdotes[mostVotedAnecdoteNumber]}</p>
+        </>
+      )}
     </div>
   );
 };
